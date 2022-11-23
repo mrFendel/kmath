@@ -19,6 +19,25 @@ dependencyResolutionManagement {
     }
 }
 
+pluginManagement {
+
+    val toolsVersion: String by extra
+
+    repositories {
+        mavenLocal()
+        maven("https://repo.kotlin.link")
+        mavenCentral()
+        gradlePluginPortal()
+    }
+
+    plugins {
+        id("space.kscience.gradle.project") version toolsVersion
+        id("space.kscience.gradle.mpp") version toolsVersion
+        id("space.kscience.gradle.jvm") version toolsVersion
+        id("space.kscience.gradle.js") version toolsVersion
+    }
+}
+
 include(
     ":test-utils",
     ":kmath-memory",

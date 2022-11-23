@@ -1,7 +1,6 @@
 plugins {
     `kotlin-dsl`
     `version-catalog`
-    kotlin("plugin.serialization") version "1.6.21"
 }
 
 java.targetCompatibility = JavaVersion.VERSION_11
@@ -15,16 +14,14 @@ repositories {
 
 val toolsVersion = npmlibs.versions.tools.get()
 val kotlinVersion = npmlibs.versions.kotlin.asProvider().get()
-val benchmarksVersion = npmlibs.versions.kotlinx.benchmark.get()
+val benchmarksVersion = "0.4.6"
 
 dependencies {
     api("space.kscience:gradle-tools:$toolsVersion")
-    api(npmlibs.atomicfu.gradle)
     //plugins form benchmarks
     api("org.jetbrains.kotlinx:kotlinx-benchmark-plugin:$benchmarksVersion")
-    api("org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion")
     //to be used inside build-script only
-    implementation(npmlibs.kotlinx.serialization.json)
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.1")
 }
 
 kotlin.sourceSets.all {

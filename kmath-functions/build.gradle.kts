@@ -11,7 +11,7 @@ description = "Functions, integration and interpolation"
 kotlin.sourceSets {
     commonMain {
         dependencies {
-            api(project(":kmath-core"))
+            api(projects.kmathCore)
         }
     }
 }

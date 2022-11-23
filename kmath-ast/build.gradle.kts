@@ -6,7 +6,7 @@ kscience{
     native()
 }
 
-kotlin.js {
+kotlin.js(org.jetbrains.kotlin.gradle.plugin.KotlinJsCompilerType.IR) {
     nodejs {
         testTask {
             useMocha().timeout = "0"

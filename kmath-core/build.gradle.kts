@@ -6,7 +6,7 @@ kscience{
     native()
 
     dependencies {
-        api(project(":kmath-memory"))
+        api(projects.kmath.kmathMemory)
     }
 }
 

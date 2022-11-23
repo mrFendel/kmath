@@ -9,7 +9,7 @@ import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 /**
- * Represents a display of certain memory structure.
+ * Represents a view of certain memory structure.
  */
 public interface Memory {
     /**
