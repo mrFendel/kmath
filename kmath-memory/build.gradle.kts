@@ -8,6 +8,12 @@ kscience {
     native()
 }
 
+kotlin {
+    wasm {
+        browser()
+    }
+}
+
 readme {
     maturity = space.kscience.gradle.Maturity.DEVELOPMENT
     description = """

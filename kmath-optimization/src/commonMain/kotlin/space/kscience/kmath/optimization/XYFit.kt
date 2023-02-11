@@ -12,6 +12,7 @@ import space.kscience.kmath.expressions.*
 import space.kscience.kmath.misc.FeatureSet
 import space.kscience.kmath.misc.Loggable
 import space.kscience.kmath.misc.UnstableKMathAPI
+import space.kscience.kmath.operations.DoubleField
 import space.kscience.kmath.operations.ExtendedField
 import space.kscience.kmath.operations.bindSymbol
 import kotlin.math.pow
@@ -132,6 +133,31 @@ public suspend fun <I : Any, A> XYColumnarData<Double, Double, Double>.fitWith(
     model: A.(I) -> I,
 ): XYFit where A : ExtendedField<I>, A : ExpressionAlgebra<Double, I> {
     val modelExpression: DifferentiableExpression<Double> = processor.differentiate {
+        val x = bindSymbol(xSymbol)
+        model(x)
+    }
+
+    return fitWith(
+        optimizer = optimizer,
+        modelExpression = modelExpression,
+        startingPoint = startingPoint,
+        features = features,
+        xSymbol = xSymbol,
+        pointToCurveDistance = pointToCurveDistance,
+        pointWeight = pointWeight
+    )
+}
+
+public suspend fun XYColumnarData<Double, Double, Double>.fitWith(
+    optimizer: Optimizer<Double, XYFit>,
+    startingPoint: Map<Symbol, Double>,
+    vararg features: OptimizationFeature = emptyArray(),
+    xSymbol: Symbol = Symbol.x,
+    pointToCurveDistance: PointToCurveDistance = PointToCurveDistance.byY,
+    pointWeight: PointWeight = PointWeight.byYSigma,
+    model: DSField<Double, DoubleField>.(DS<Double, DoubleField>) -> DS<Double, DoubleField>,
+): XYFit {
+    val modelExpression: DifferentiableExpression<Double> = Double.autodiff.differentiate {
         val x = bindSymbol(xSymbol)
         model(x)
     }

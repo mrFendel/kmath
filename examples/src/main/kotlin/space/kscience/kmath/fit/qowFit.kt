@@ -10,7 +10,6 @@ import kotlinx.html.h3
 import space.kscience.kmath.data.XYErrorColumnarData
 import space.kscience.kmath.distributions.NormalDistribution
 import space.kscience.kmath.expressions.Symbol
-import space.kscience.kmath.expressions.autodiff
 import space.kscience.kmath.expressions.binding
 import space.kscience.kmath.expressions.symbol
 import space.kscience.kmath.operations.asIterable
@@ -62,7 +61,6 @@ suspend fun main() {
 
     val result = XYErrorColumnarData.of(x, y, yErr).fitWith(
         QowOptimizer,
-        Double.autodiff,
         mapOf(a to 0.9, b to 1.2, c to 2.0, e to 1.0, d to 1.0, e to 0.0),
         OptimizationParameters(a, b, c, d)
     ) { arg ->
